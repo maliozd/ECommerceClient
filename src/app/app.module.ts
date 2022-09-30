@@ -13,11 +13,14 @@ import { DeleteDirective } from './directives/admin/delete.directive';
 import { DeleteDialogComponent } from './dialogs/delete-dialog/delete-dialog.component';
 import { JwtModule } from '@auth0/angular-jwt'
 ;
+import { LoginComponent } from './ui/components/login/login.component';
+import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,   
@@ -28,16 +31,30 @@ import { JwtModule } from '@auth0/angular-jwt'
     ToastrModule.forRoot(),
     NgxSpinnerModule,
     HttpClientModule,
+    SocialLoginModule,
     JwtModule.forRoot({
       config : {
         tokenGetter: () => localStorage.getItem("accessToken"),
         allowedDomains: ["localhost:7274"]
       }
-    })    
+    })  
   ],
   providers: [
     {
       provide : "baseUrl", useValue : "https://localhost:7274/api" , multi: true //singletonlandı??
+    },
+    {
+      provide: "SocialAuthServiceConfig",
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider("688101953703-m8dc93g4h2ic5ugbhgudkuhr5p6gof06.apps.googleusercontent.com")
+          }
+        ],
+        onError: err => console.log(err)
+      } as SocialAuthServiceConfig
     }
   ],
   bootstrap: [AppComponent]

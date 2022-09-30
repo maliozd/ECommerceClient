@@ -1,3 +1,4 @@
+import { SocialUser } from '@abacritt/angularx-social-login';
 import { Injectable } from '@angular/core';
 import { firstValueFrom, Observable } from 'rxjs';
 import { JwtToken } from 'src/app/contracts/token/jwtToken';
@@ -11,7 +12,7 @@ import { HttpClientService } from '../http-client.service';
   providedIn: 'root',
 })
 export class UserService {
-  constructor(private httpClientService: HttpClientService,private toastrService : CustomToastrService) { }
+  constructor(private httpClientService: HttpClientService, private toastrService: CustomToastrService) { }
   async create(user: User): Promise<Create_User> {
     const observable: Observable<Create_User | User> =
       this.httpClientService.post<Create_User | User>(
@@ -31,7 +32,7 @@ export class UserService {
     const observable: Observable<any | JwtTokenResponse> = this.httpClientService.post<
       any | JwtTokenResponse>(
         {
-          
+
           controller: 'Users',
           action: 'Login',
         },
@@ -42,13 +43,29 @@ export class UserService {
       );
     const tokenResponse: JwtTokenResponse = (await firstValueFrom(observable)) as JwtTokenResponse;
     if (tokenResponse) {
-      this.toastrService.message("Successful login.","Success",{
+      this.toastrService.message("Successful login.", "Success", {
         messageType: ToastrMessageType.Success,
-        position : ToastrPosition.TopLeft
+        position: ToastrPosition.TopLeft
       })
-      localStorage.setItem('accessToken',tokenResponse.token.accessToken);
+      localStorage.setItem('accessToken', tokenResponse.token.accessToken);
       console.log(tokenResponse)
       console.log(tokenResponse.token.accessToken)
+    }
+    callBackFunction();
+  }
+
+  async googleLoginAsync(user: SocialUser, callBackFunction?: () => void) {
+    const observable: Observable<SocialUser | JwtTokenResponse> = this.httpClientService.post<SocialUser | JwtTokenResponse>({
+      action: "google-login",
+      controller: "users"
+    }, user);
+    const tokenResponse: JwtTokenResponse = await firstValueFrom(observable) as JwtTokenResponse;
+    if (tokenResponse) {
+      localStorage.setItem("accessToken", tokenResponse.token.accessToken);
+      this.toastrService.message("Google login success.", "Success login", {
+        messageType: ToastrMessageType.Success,
+        position: ToastrPosition.BottomRight
+      });
     }
     callBackFunction();
   }
