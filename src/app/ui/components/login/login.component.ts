@@ -4,8 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
 import { AuthService } from 'src/app/services/common/auth.service';
-import { HttpClientService } from 'src/app/services/common/http-client.service';
-import { UserService } from 'src/app/services/common/models/user.service';
+import { UserAuthService } from 'src/app/services/common/models/user-auth.service';
 
 @Component({
   selector: 'app-login',
@@ -13,11 +12,11 @@ import { UserService } from 'src/app/services/common/models/user.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent extends BaseComponent {
-  constructor(private userService: UserService, spinner: NgxSpinnerService, private authService: AuthService, private router: Router, private activatedRoute: ActivatedRoute, private socialAuthService: SocialAuthService) {
+  constructor(private userAuthService: UserAuthService, spinner: NgxSpinnerService, private authService: AuthService, private router: Router, private activatedRoute: ActivatedRoute, private socialAuthService: SocialAuthService) {
     super(spinner);
     this.socialAuthService.authState.subscribe(async (user: SocialUser) => {
       this.showSpinner(SpinnerType.BallScalePulse)
-      await userService.googleLoginAsync(user, () => {
+      await userAuthService.googleLoginAsync(user, () => {
         this.hideSpinner(SpinnerType.BallScalePulse)
         this.authService.checkIdentity();
         const returnUrl = this.activatedRoute.snapshot.queryParams.returnUrl
@@ -34,7 +33,7 @@ export class LoginComponent extends BaseComponent {
   ngOnInit(): void { }
   async login(usernameOrEmail: string, password: string) {
     this.showSpinner(SpinnerType.BallScalePulse);
-    await this.userService.login(usernameOrEmail, password, () => {
+    await this.userAuthService.login(usernameOrEmail, password, () => {
       this.authService.checkIdentity();
       const returnUrl = this.activatedRoute.snapshot.queryParams.returnUrl
       if (returnUrl) {

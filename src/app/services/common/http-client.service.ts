@@ -22,20 +22,7 @@ export class HttpClientService {
       url = `${this.getUrl(requestParameter)}${id ? `/${id}` : ""}${requestParameter.queryString ? `?${requestParameter.queryString}` : ""}`;
 
     return this.httpClient.get<T>(url, { headers: requestParameter.headers })  //<T> , returns observable object 
-  }
-  //----------------------
-
-  // get<T>(requestParameter: Partial<RequestParameters>, id?: number): Observable<T> { 
-  //   let url: string = "";
-  //   if (requestParameter.fullEndPoint)
-  //     url = requestParameter.fullEndPoint
-
-  //   else
-  //     url = `${this.getUrl(requestParameter)}${id ? `/${id}` : ""}`;
-
-  //   return this.httpClient.get<T>(url, { headers: requestParameter.headers })  //<T> , returns observable object 
-  // }
-
+  }  
   post<T>(requestParameter: Partial<RequestParameters>, body: Partial<T>): Observable<T> { //bodynin partial alınma amacı, fonksiyon kullanılırken tip güvenliği sağlayabilmek
     let url: string = "";
     if (requestParameter.fullEndPoint)
