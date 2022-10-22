@@ -21,7 +21,6 @@ export class UserAuthService {
     const observable: Observable<any | TokenResponse> = this.httpClientService.post<
       any | TokenResponse>(
         {
-
           controller: 'Auth',
           action: 'Login',
         },
@@ -38,9 +37,6 @@ export class UserAuthService {
       })
       localStorage.setItem('accessToken', tokenResponse.token.accessToken);
       localStorage.setItem('refreshToken', tokenResponse.token.refreshToken);
-
-      console.log(tokenResponse)
-      console.log(tokenResponse.token.accessToken)
     }
     callBackFunction();
   }
@@ -54,7 +50,6 @@ export class UserAuthService {
     if (tokenResponse) {
       localStorage.setItem("accessToken", tokenResponse.token.accessToken);
       localStorage.setItem('refreshToken', tokenResponse.token.refreshToken);
-
       this.toastrService.message("Google login success.", "Success login", {
         messageType: ToastrMessageType.Success,
         position: ToastrPosition.BottomRight
