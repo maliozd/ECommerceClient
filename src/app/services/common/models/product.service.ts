@@ -30,7 +30,6 @@ export class ProductService {
     });
   }
 
-
   async getProduct(page: number = 0, size: number = 5, successCallBack?: () => void, errorCallBack?: (errorMesage: string) => void): Promise<{ totalCount: number, products: List_Product[] }> {
     const promiseData: Promise<{ totalCount: number; products: List_Product[] }> = this.httpClientService.get<{ totalCount: number, products: List_Product[] }>({
       controller: "products",
@@ -47,24 +46,36 @@ export class ProductService {
     }, id);
     await firstValueFrom(deletedObservable);
   }
- async readImages(id: number,successCallBack?:() => void):Promise<List_Product_Image[]> {
+  async readImages(id: number, successCallBack?: () => void): Promise<List_Product_Image[]> {
     const getObservable: Observable<List_Product_Image[]> = this.httpClientService.get<List_Product_Image[]>({
       action: "getProductImages",
       controller: "products"
     }, id)
-    const images:List_Product_Image[] = await firstValueFrom(getObservable);
+    const images: List_Product_Image[] = await firstValueFrom(getObservable);
     return images;
   }
-  async deleteImage(id:number,imageId:number,successCallBack?: () => void){
-   const deletedObservable=  this.httpClientService.delete({
+  async deleteImage(id: number, imageId: number, successCallBack?: () => void) {
+    const deletedObservable = this.httpClientService.delete({
       action: "deleteProductImage",
-      controller : "products",
-      queryString : `imageId=${imageId}`
-    },id)
+      controller: "products",
+      queryString: `imageId=${imageId}`
+    }, id)
     await firstValueFrom(deletedObservable);
     successCallBack();
   }
 
+  async changeShowcaseImage(imageId: number, productId: number, successCallBack?: () => void): Promise<void> {
+    const observable = this.httpClientService.put({
+      controller: "products",
+      action: "ChangeProductImageShowcase"
+    }, {
+      imageId: imageId,
+      productId: productId
+    });
+    debugger
+    await firstValueFrom(observable);
+    successCallBack();
+  }
 }
 
 

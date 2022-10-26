@@ -18,10 +18,13 @@ declare var $: any
 })
 export class SelectProductImageDialogComponent extends BaseDialog<SelectProductImageDialogComponent> implements OnInit {
 
+  selectedRadioImageId: number
+
   constructor(dialogRef: MatDialogRef<SelectProductImageDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: SelectProductImageState | number,
     private productService: ProductService,
-    private dialogService: DialogService) {
+    private dialogService: DialogService,
+    private spinnerService: NgxSpinnerService) {
     super(dialogRef)
   }
   @Output() options: Partial<FileUploadOptions> = {
@@ -37,6 +40,11 @@ export class SelectProductImageDialogComponent extends BaseDialog<SelectProductI
   images: List_Product_Image[];
   async ngOnInit() {
     this.images = await this.productService.readImages(this.data as number)
+    this.images.forEach((image) => {
+      if (image.showcase){
+        this.selectedRadioImageId = image.id;
+      }
+    })
 
 
   }
@@ -51,7 +59,15 @@ export class SelectProductImageDialogComponent extends BaseDialog<SelectProductI
         })
       }
     })
-}
+  }
+  setShowcaseImage(imageId: number) {
+    this.spinnerService.show(SpinnerType.BallScalePulse);
+    debugger
+    this.productService.changeShowcaseImage(imageId, this.data, () => {
+      this.spinnerService.hide(SpinnerType.BallScalePulse)
+      this.selectedRadioImageId = imageId;
+    })
+  }
 
 }
 export enum SelectProductImageState {

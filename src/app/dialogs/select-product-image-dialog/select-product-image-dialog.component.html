@@ -3,10 +3,14 @@
   <app-file-upload [options]="options"></app-file-upload>
 
   <mat-card class="product-image-card" #card *ngFor="let image of images">
-    <mat-card-header>        
+    <mat-card-header>
+      <input type="radio" name="img" (click)="setShowcaseImage(image.id)" *ngIf="image.id == selectedRadioImageId"
+        checked="checked" />
+        <input type="radio" name="img" (click)="setShowcaseImage(image.id)" *ngIf="image.id != selectedRadioImageId" />
+
     </mat-card-header>
     <img mat-card-image [src]="image.path" alt="Photo of a Shiba Inu">
-    <mat-card-content>      
+    <mat-card-content>
     </mat-card-content>
     <mat-card-actions>
       <button style="background-color: orange" (click)="deleteImage(image.id, $event)" mat-button>Delete</button>

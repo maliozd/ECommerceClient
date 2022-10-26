@@ -59,7 +59,7 @@ export class ListComponent extends BaseComponent implements OnInit {
   }
 
   async pageChanged() {
-    await this.getProducts()
+    await this.getProducts();
   }
 
  

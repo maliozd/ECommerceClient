@@ -7,6 +7,7 @@ import { FileUploadModule } from '../services/common/file-upload/file-upload.mod
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { SelectProductImageDialogComponent } from './select-product-image-dialog/select-product-image-dialog.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -20,7 +21,8 @@ import { SelectProductImageDialogComponent } from './select-product-image-dialog
   imports: [
     CommonModule,
     MatDialogModule, MatButtonModule, MatCardModule,
-    FileUploadModule
+    FileUploadModule,
+    FormsModule
 
   ]
 
