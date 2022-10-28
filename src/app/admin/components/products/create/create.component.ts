@@ -19,7 +19,7 @@ export class CreateComponent extends BaseComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  @Output() productToCreate: EventEmitter<Create_Product> = new EventEmitter
+  @Output() productToCreate: EventEmitter<Create_Product> = new EventEmitter();
   @Output() fileUploadOptions: Partial<FileUploadOptions>  = {
     action : "upload",
     controller : "products",
