@@ -1,28 +1,29 @@
-// import { Component, Injectable, ViewContainerRef } from '@angular/core';
-// import { BaseComponent } from 'src/app/base/base.component';
-// import { BasketsComponent } from 'src/app/ui/components/baskets/baskets.component';
+import { Injectable, ViewContainerRef } from '@angular/core';
+import { BaseComponent } from '../../base/base.component';
 
-// @Injectable({
-//   providedIn: 'root'
-// })
-// export class DynamicLoadComponentService {
+@Injectable({
+    providedIn: 'root'
+})
+export class DynamicLoadComponentService {
 
-//   constructor(private viewContainerRef: ViewContainerRef) { }
+    //ViewContainerRef          : Dinamik olarak yüklenecek componenti içerisinde barındıran container'dır. (Her dinamik yükleme sürecinde önceki view'leri clear etmemiz gerekmektedir.)
 
-//   async loadComponent(component: ComponentName, viewContainerRef : ViewContainerRef) {
+    constructor() { }
 
-//     let _component : any = null;
+    async loadComponent(component: ComponentType, viewContainerRef: ViewContainerRef) {
+        let _component: any = null;
 
-//     switch (component) {
-//       case ComponentName.BasketComponent:
-//         _component = await (await import ("../../ui/components/baskets/baskets.component")).BasketsComponent
-//         break;
-//     }
-//     this.viewContainerRef.clear();
-//     return this.viewContainerRef.createComponent(_component)
-//   }
-// }
+        switch (component) {
+            case ComponentType.BasketsComponent:
+                _component = (await import("../../ui/components/baskets/baskets.component")).BasketsComponent;
+                break;
+        }
 
-// export enum ComponentName {
-//   BasketComponent
-// }
+        viewContainerRef.clear();
+        return viewContainerRef.createComponent(_component)
+    }
+}
+
+export enum ComponentType {
+    BasketsComponent
+}

@@ -1,5 +1,5 @@
 import { ThisReceiver } from '@angular/compiler';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { HubConnection, HubConnectionBuilder, HubConnectionState } from '@microsoft/signalr';
 
 @Injectable({
@@ -7,17 +7,13 @@ import { HubConnection, HubConnectionBuilder, HubConnectionState } from '@micros
 })
 export class SignalRService {
 
-  constructor() { }
+  constructor(@Inject("baseSignalRUrl") private baseSignalRUrl: string) { }
 
-  private _connection: HubConnection
-  get connection(): HubConnection {
-    return this._connection
-  }
-
+  
   //başlatılmış bir hub dönecek
   //
   start(hubUrl: string) {
-    if (!this.connection || this._connection?.state == HubConnectionState.Disconnected) {
+    hubUrl = `${this.baseSignalRUrl}${hubUrl}`;
       const builder: HubConnectionBuilder = new HubConnectionBuilder();
       const hubConnection: HubConnection = builder
         .withUrl(hubUrl)
@@ -29,19 +25,18 @@ export class SignalRService {
       ).catch(error =>
         setTimeout(() => this.start(hubUrl), 2000));
 
-      this._connection = hubConnection;
-    }
-    this._connection.onreconnected(connectionId => console.log("Hub connection reconnected!!"));
-    this._connection.onreconnecting(error => console.log("Hub reconnecting..."));
-    this._connection.onclose(error => console.log("Hub connection closed"));
+    hubConnection.onreconnected(connectionId => console.log("Hub connection reconnected!!"));
+    hubConnection.onreconnecting(error => console.log("Hub reconnecting..."));
+    hubConnection.onclose(error => console.log("Hub connection closed"));
+    return hubConnection;
   }
   //event fırlatmak gibi
   //procedureName = backend -> receiveFunctionNames
-  invoke(procedureName: string, message: any, successCallBack?: (value) => void, errorCallBack?: (error) => void) {
-    this._connection.invoke(procedureName, message).then(successCallBack).catch(errorCallBack)
+  invoke(hubUrl : string,procedureName: string, message: any, successCallBack?: (value) => void, errorCallBack?: (error) => void) {
+    this.start(hubUrl).invoke(procedureName, message).then(successCallBack).catch(errorCallBack)
   }
   //serverdan gelecek olan mesajları runtimeda yakalayacak fonksiyonları tetikleyecek fonksyion
-  on(procedureName: string, callBack: (...message: any) => void) {
-    this._connection.on(procedureName, callBack);
+  on(hubUrl:string,procedureName: string, callBack: (...message: any) => void) {
+    this.start(hubUrl).on(procedureName, callBack);
   }
 }

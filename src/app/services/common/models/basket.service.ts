@@ -11,14 +11,17 @@ import { HttpClientService } from '../http-client.service';
 export class BasketService {
 
   constructor(private httpClientService: HttpClientService) { }
-  @Output() addBasketItemEventEmitter = new EventEmitter();
 
 
   async getBasketItemsAsync(): Promise<List_BasketItem[]> {
     const observable: Observable<List_BasketItem[]> = this.httpClientService.get({
       controller: "baskets"
     });
-    return await firstValueFrom(observable);
+    let items = await firstValueFrom(observable);
+    if (items.length > 0)
+      return items;
+    else
+      return [];
   }
 
   async addBasketItemAsync(productItem: Create_BasketItem): Promise<void> {

@@ -29,16 +29,18 @@
           </li>
         </ul>
 
-        <!-- <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form> -->
+
         <div>
           <a class="btn btn-warning" routerLink="admin" *ngIf="authService.isAuthenticated">Admin Page</a>
-          <button class="btn btn-success" type="submit" data-bs-toggle="modal" data-bs-target="#exampleModal">Basket</button>
+
+
+
+          <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#basketModal"
+            (click)="loadBasketComponent()" type="submit">Sepet</button>
+
           <a class="btn btn-danger" (click)="signOut()" *ngIf="authService.isAuthenticated">Logout</a>
         </div>
-      </div>     
+      </div>
     </div>
   </nav>
   <div class="col-md-2"></div>
@@ -53,7 +55,14 @@
 <ngx-spinner type="ball-spin-fade-rotating" name="s3"></ngx-spinner>
 
 
-<app-baskets></app-baskets>
+<!-- <app-baskets></app-baskets> -->
+
+
+<div class="modal fade" id="basketModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-l">
+    <ng-template appDynamicLoadComponent></ng-template>
+  </div>
+</div>
 
 
 

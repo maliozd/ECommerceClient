@@ -8,6 +8,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { SelectProductImageDialogComponent } from './select-product-image-dialog/select-product-image-dialog.component';
 import { FormsModule } from '@angular/forms';
+import { DeleteBasketItemDialogComponent } from './delete-basket-item-dialog/delete-basket-item-dialog.component';
+import { CompletePurchaseDialogComponent } from './complete-purchase-dialog/complete-purchase-dialog.component';
 
 
 
@@ -16,7 +18,9 @@ import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     DeleteDialogComponent,
-    SelectProductImageDialogComponent
+    SelectProductImageDialogComponent,
+    DeleteBasketItemDialogComponent,
+    CompletePurchaseDialogComponent
   ],
   imports: [
     CommonModule,

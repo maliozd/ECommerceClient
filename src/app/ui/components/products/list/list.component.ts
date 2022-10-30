@@ -16,9 +16,9 @@ import { CustomToastrService, ToastrMessageType, ToastrPosition } from 'src/app/
 })
 export class ListComponent extends BaseComponent implements OnInit {
 
-  constructor(private productService: ProductService, private activatedRoute: ActivatedRoute, private fileService: FileService, private basketService : BasketService,spinner : NgxSpinnerService,private toastrService : CustomToastrService) {
+  constructor(private productService: ProductService, private activatedRoute: ActivatedRoute, private fileService: FileService, private basketService: BasketService, spinner: NgxSpinnerService, private toastrService: CustomToastrService) {
     super(spinner)
-   }
+  }
   currentPageNo: number;
   totalProductCount: number
   totalPageCount: number;
@@ -37,11 +37,11 @@ export class ListComponent extends BaseComponent implements OnInit {
       }, errorMessage => {
 
       });
-      
+
       this.baseUrl = (await this.fileService.getBaseStorageUrlAsync()).baseStorageUrl
       this.products = data.products
       this.products = this.products.map<List_Product>(p => {
-        const showcaseImage = p.productImageFiles?.find(x=> x.showcase);
+        const showcaseImage = p.productImageFiles?.find(x => x.showcase);
         const imagePath = showcaseImage ? `${showcaseImage.path}` : ""
         const listProduct: List_Product = {
           id: p.id,
@@ -73,17 +73,17 @@ export class ListComponent extends BaseComponent implements OnInit {
     })
   }
 
-  async addToBasket(product: List_Product){
+  async addToBasket(product: List_Product) {
     this.showSpinner(SpinnerType.BallScalePulse)
-   await this.basketService.addBasketItemAsync({
-    productId : product.id,
-    quantity : 1
-   });
-   this.hideSpinner(SpinnerType.BallScalePulse)
-   this.toastrService.message("Item added to cart.","Successfull",{
-    position : ToastrPosition.TopRight,
-    messageType : ToastrMessageType.Success
-   });
-   this.basketService.addBasketItemEventEmitter.emit(product);
+
+    await this.basketService.addBasketItemAsync({
+      productId: product.id,
+      quantity: 1
+    });
+    this.hideSpinner(SpinnerType.BallScalePulse)
+    this.toastrService.message("Item added to cart.", "Successfull", {
+      position: ToastrPosition.TopRight,
+      messageType: ToastrMessageType.Success
+    });
   }
 }
