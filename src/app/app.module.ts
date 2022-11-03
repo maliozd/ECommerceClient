@@ -9,7 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { DeleteDirective } from './directives/admin/delete.directive';
+import { DeleteDirective } from './directives/admin/delete/delete.directive';
 import { DeleteDialogComponent } from './dialogs/delete-dialog/delete-dialog.component';
 import { JwtModule } from '@auth0/angular-jwt'
   ;
