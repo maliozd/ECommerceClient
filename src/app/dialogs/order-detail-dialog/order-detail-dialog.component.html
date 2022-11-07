@@ -1,7 +1,7 @@
 <h2 mat-dialog-title>Order detail</h2>
 <mat-dialog-content class="mat-typography">
   <mat-toolbar class = "orderCode">
-    <span class = "span">Code : {{singleOrder.orderCode}}</span>
+    <span class = "span">Code : {{singleOrder?.orderCode}}</span>
   </mat-toolbar>
   <table mat-table [dataSource]="dataSource" class="order-detail-table">
     
@@ -44,12 +44,12 @@
   <mat-card  class = "card">
     <span class = "span">
       Adress : 
-      {{singleOrder.address}}
+      {{singleOrder?.address}}
     </span>
   </mat-card>
 
 </mat-dialog-content>
 <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close>Close</button>
-    <button mat-button [mat-dialog-close] = "data" cdkFocusInitial>Complete</button>
+    <button mat-button [mat-dialog-close] = "data" cdkFocusInitial (click) = "completeOrder()" *ngIf = "!singleOrder?.isCompleted">Complete</button>
 </mat-dialog-actions>

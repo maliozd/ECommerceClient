@@ -3,6 +3,6 @@ orderCode : string;
 userName : string;
 totalPrice : number;
 createdDate : Date;
-completed: boolean;
+isCompleted: boolean;
 
 }

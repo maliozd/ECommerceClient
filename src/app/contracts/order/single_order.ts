@@ -6,5 +6,5 @@ export class Single_Order {
     address: string
     description: string
     createdDate: Date
-
+    isCompleted : boolean
 }

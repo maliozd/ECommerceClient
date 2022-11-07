@@ -1,8 +1,13 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { SpinnerType } from 'src/app/base/base.component';
 import { Single_Order } from 'src/app/contracts/order/single_order';
+import { DialogService } from 'src/app/services/common/dialog.service';
 import { OrderService } from 'src/app/services/common/models/order.service';
+import { CustomToastrService, ToastrMessageType, ToastrPosition } from 'src/app/services/ui/custom-toastr.service';
 import { BaseDialog } from '../base/base-dialog';
+import { CompleteOrderDialogComponent, CompleteOrderDialogState } from '../complete-order-dialog/complete-order-dialog.component';
 
 @Component({
   selector: 'app-order-detail-dialog',
@@ -12,7 +17,7 @@ import { BaseDialog } from '../base/base-dialog';
 export class OrderDetailDialogComponent extends BaseDialog<OrderDetailDialogComponent> implements OnInit {
 
   constructor(dialogRef: MatDialogRef<OrderDetailDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: OrderDetailDialogState | number,
-    private orderService: OrderService) {
+    private orderService: OrderService, private dialogService: DialogService, private spinner: NgxSpinnerService, private toastrService: CustomToastrService) {
     super(dialogRef)
   }
 
@@ -25,8 +30,26 @@ export class OrderDetailDialogComponent extends BaseDialog<OrderDetailDialogComp
 
   async ngOnInit() {
     this.singleOrder = await this.orderService.getOrderById(this.data);
+    console.log(this.singleOrder);
     this.dataSource = this.singleOrder.basketItems;
     this.orderTotalPrice = this.singleOrder.basketItems.map((basketItem, index) => basketItem.price * basketItem.quantity).reduce((price, current) => price + current);
+  }
+
+  async completeOrder() {
+    this.dialogService.openDialog({
+      componentType: CompleteOrderDialogComponent,
+      data: CompleteOrderDialogState.Yes,
+      afterClosed: async () => {
+        this.spinner.show(SpinnerType.BallScalePulse);
+        await this.orderService.completeOrder(this.data as number)
+        this.spinner.hide(SpinnerType.BallScalePulse);
+        this.toastrService.message("Order successfully completed.", "Successfull", {
+          position: ToastrPosition.TopCenter,
+          messageType: ToastrMessageType.Success
+        });
+        
+      }
+    })
   }
 
 }
