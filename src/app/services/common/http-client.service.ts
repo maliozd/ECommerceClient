@@ -13,7 +13,7 @@ export class HttpClientService {
     return `${requestParameter.baseUrl ? requestParameter.baseUrl : this.baseUrl}/${requestParameter.controller}${requestParameter.action ? `/${requestParameter.action}` : ""}`;
   }
 
-  get<T>(requestParameter: Partial<RequestParameters>, id?: number): Observable<T> { //id, her işleme ait bir parametre değil.
+  get<T>(requestParameter: Partial<RequestParameters>, id?: string): Observable<T> { //id, her işleme ait bir parametre değil.
     let url: string = "";
     if (requestParameter.fullEndPoint)
       url = requestParameter.fullEndPoint
@@ -42,7 +42,7 @@ export class HttpClientService {
 
     return this.httpClient.put<T>(url, body, { headers: requestParameter.headers })
   }
-  delete<T>(requestParameter: Partial<RequestParameters>, id: number): Observable<T> {
+  delete<T>(requestParameter: Partial<RequestParameters>, id: string): Observable<T> {
     let url: string = "";
     if (requestParameter.fullEndPoint)
       url = requestParameter.fullEndPoint

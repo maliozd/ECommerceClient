@@ -54,7 +54,7 @@ export class BasketsComponent extends BaseComponent implements OnInit {
     this.hideSpinner(SpinnerType.BallTrianglePath);
   }
 
-  removeBasketItem(basketItemId: number) {
+  removeBasketItem(basketItemId: string) {
     $("#basketModal").modal("hide");
     this.dialogService.openDialog({
       componentType: DeleteBasketItemDialogComponent,

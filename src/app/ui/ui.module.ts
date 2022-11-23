@@ -5,10 +5,12 @@ import { ComponentsModule } from './components/components.module';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+  ],
   imports: [
     CommonModule,
-    ComponentsModule
+    ComponentsModule,
+    
   ],
   exports : [
     ComponentsModule

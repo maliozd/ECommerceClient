@@ -1,6 +1,6 @@
 export class List_Product_Image{
     fileName: string;
     path:string;
-    id:number
+    id:string
     showcase : boolean
 }

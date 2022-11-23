@@ -16,6 +16,7 @@ const routes: Routes = [
       {path: "products", loadChildren: () => import("./admin/components/products/product.module").then(module => module.ProductModule), canActivate: [AuthGuard]},
 
       {path: "orders", loadChildren: () => import("./admin/components/orders/order.module").then(module => module.OrderModule) , canActivate: [AuthGuard]},
+      {path: "authorize-menu", loadChildren: () => import("./admin/components/authorize-menu/authorize-menu.module").then(module => module.AuthorizeMenuModule) , canActivate: [AuthGuard]},
     ], canActivate: [AuthGuard]
   },
   {path : "", component:HomeComponent},
@@ -23,7 +24,8 @@ const routes: Routes = [
   {path : "register", loadChildren : () => import("./ui/components/register/register.module").then(module => module.RegisterModule)},
   {path : "login", loadChildren : () => import("./ui/components/login/login.module").then(module => module.LoginModule)},
   {path : "products", loadChildren:() => import("./ui/components/products/products.module").then(module => module.ProductsModule)},
-  {path : "products/:pageNo", loadChildren:() => import("./ui/components/products/products.module").then(module => module.ProductsModule)}
+  {path : "products/:pageNo", loadChildren:() => import("./ui/components/products/products.module").then(module => module.ProductsModule)},
+  {path : "profile" ,loadChildren:() => import("./ui/components/profile/profile.module").then(module => module.ProfileModule)}
 
 ];
 

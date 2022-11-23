@@ -1,33 +1,39 @@
-<div class="container">
-    <div class="row">
-        <div class="card" style="width: 18rem;float: left; margin: 5px;"
-        *ngFor = "let product of products">
-            <img *ngIf = "!product.productImageFiles.length"src="../../../../../assets/orangebox.jpg" class="card-img-top" alt="...">
-            <img *ngIf = "product.productImageFiles.length"src="{{baseUrl}}/{{product.imagePath}}" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">{{product.name}}</h5>
-                <p class="card-text">Price : {{product.price | currency}}
-                    <br>
-                   Stock : {{product.stock}}</p>
-                <a class="btn btn-primary" (click) = "addToBasket(product)" >Add to basket</a>
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="container-fluid">
+            <div class="card" style="width: 18rem;float: left; margin: 5px;" *ngFor="let product of products">
+                <img *ngIf="!product.productImageFiles.length" src="../../../../../assets/orangebox.jpg"
+                    class="card-img-top" alt="...">
+                <img *ngIf="product.productImageFiles.length" src="{{baseUrl}}/{{product.imagePath}}"
+                    class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{product.name}}</h5>
+                    <p class="card-text">Price : {{product.price | currency}}
+                        <br>
+                        Stock : {{product.stock}}
+                    </p>
+                    <a class="btn btn-warning" (click)="addToBasket(product)">Add to basket</a>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<div class="container-md">
-    <div class="col-md-3"></div>
-    <div class="col-md-3"></div>
-    <div class="col-md-3">
-        <nav aria-label="Page navigation example">
+
+    <div class="pagination">
+        <nav aria-label="Page navigation">
             <ul class="pagination">
-                <li class = "page-item" ><a class = "page-link">{{currentPageNo}}/{{totalPageCount}}</a></li>
-                <li class = "page-item" *ngIf = "currentPageNo != 1"><a [routerLink] = "['/products',currentPageNo-1 <= 0 ? 1 : currentPageNo-1]" class = "page-link" href = "#">Previous</a></li>
-                <li *ngFor = "let pageNo of pageList;"  class = "page-item"><a class = "page-link" [routerLink] = "['/products',pageNo]" routerLinkActive = "active">{{pageNo}}</a></li>
-                <li class = "page-item" *ngIf = "currentPageNo < totalPageCount"><a [routerLink] = "['/products',currentPageNo + 1 >= totalPageCount ? totalPageCount : currentPageNo + 1]"  class = "page-link" >Next</a></li>
-                
+                <li class="page-item"><a class="page-link">{{currentPageNo}}/{{totalPageCount}}</a></li>
+                <li class="page-item" *ngIf="currentPageNo != 1"><a
+                        [routerLink]="['/products',currentPageNo-1 <= 0 ? 1 : currentPageNo-1]" class="page-link"
+                        href="#">Previous</a></li>
+                <li *ngFor="let pageNo of pageList;" class="page-item"><a class="page-link"
+                        [routerLink]="['/products',pageNo]" routerLinkActive="active">{{pageNo}}</a></li>
+                <li class="page-item" *ngIf="currentPageNo < totalPageCount"><a
+                        [routerLink]="['/products',currentPageNo + 1 >= totalPageCount ? totalPageCount : currentPageNo + 1]"
+                        class="page-link">Next</a></li>
+
             </ul>
         </nav>
     </div>
-    <div class="col-md-3"></div>
-    <div class="col-md-3"></div>
+
 </div>

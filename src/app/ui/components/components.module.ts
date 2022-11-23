@@ -8,12 +8,14 @@ import { RegisterComponent } from './register/register.component';
 import { RegisterModule } from './register/register.module';
 import { LoginComponent } from './login/login.component';
 import { LoginModule } from './login/login.module';
+import { ProfileComponent } from './profile/profile.component';
+import { ProfileModule } from './profile/profile.module';
 
 
 
 
 @NgModule({
-  declarations: [    
+  declarations: [     
   
   ],
   imports: [
@@ -23,6 +25,7 @@ import { LoginModule } from './login/login.module';
     BasketsModule  ,
     RegisterModule,
     // LoginModule
+    ProfileModule
   ],
   exports :[
     BasketsModule

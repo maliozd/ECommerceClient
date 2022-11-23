@@ -1,6 +1,6 @@
 export class Single_Order {
 
-    id: number
+    id: string
     orderCode: string
     basketItems: any[]
     address: string

@@ -58,6 +58,14 @@ export class HttpErrorHandlerInterceptorService implements HttpInterceptor {
             position: ToastrPosition.TopFullWidth
           })
           break;
+        case HttpStatusCode.MethodNotAllowed:
+          console.log(error)
+          console.log(error.error[0].value)
+          this.toastrService.message(error.error[0].value,error.error[0].key,{
+            messageType : ToastrMessageType.Error,
+            position : ToastrPosition.TopLeft
+          });
+          break;
         default:
           console.log(error)
 

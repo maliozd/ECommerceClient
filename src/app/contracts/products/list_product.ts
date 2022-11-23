@@ -1,7 +1,7 @@
 import { List_Product_Image } from "../productImage/list_product_image"
 
 export class List_Product {
-id:number
+id:string
 name : string
 stock : number
 price : number

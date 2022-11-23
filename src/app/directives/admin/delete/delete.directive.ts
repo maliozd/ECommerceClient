@@ -26,7 +26,7 @@ export class DeleteDirective {  //elementref --> otomatik olarak directivein üz
     img.height = 25;
     renderer.appendChild(element.nativeElement, img)
   }
-  @Input() id: number
+  @Input() id: string
   @Input() controller: string //html'den alınıyor --> daha global çözüm olabilir.
   @Output() getProductCallBack: EventEmitter<any> = new EventEmitter();  //output fonksiyon üzerinden getProducta erişiyorum
 

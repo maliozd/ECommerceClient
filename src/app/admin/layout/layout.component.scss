@@ -1,8 +1,10 @@
 .admin-container {
-    width: 1500px;
+    width: 2500px;
     height: 800px;
     margin: 10px;
     border: 1px solid #555;
+    display: flex;
+    border-radius: 1rem;
 }
 .admin-leftbar {
     width: 135px;

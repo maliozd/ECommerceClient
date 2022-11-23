@@ -40,13 +40,13 @@ export class ProductService {
 
     return await promiseData
   }
-  async delete(id: number) {
+  async delete(id: string) {
     const deletedObservable: Observable<any> = this.httpClientService.delete<any>({
       controller: "products"
     }, id);
     await firstValueFrom(deletedObservable);
   }
-  async readImages(id: number, successCallBack?: () => void): Promise<List_Product_Image[]> {
+  async readImages(id: string, successCallBack?: () => void): Promise<List_Product_Image[]> {
     const getObservable: Observable<List_Product_Image[]> = this.httpClientService.get<List_Product_Image[]>({
       action: "getProductImages",
       controller: "products"
@@ -54,17 +54,17 @@ export class ProductService {
     const images: List_Product_Image[] = await firstValueFrom(getObservable);
     return images;
   }
-  async deleteImage(id: number, imageId: number, successCallBack?: () => void) {
+  async deleteImage(id: string, imageId: string, successCallBack?: () => void) {
     const deletedObservable = this.httpClientService.delete({
       action: "deleteProductImage",
       controller: "products",
-      queryString: `imageId=${imageId}`
+      queryString: `ImageId=${imageId}`
     }, id)
     await firstValueFrom(deletedObservable);
     successCallBack();
   }
 
-  async changeShowcaseImage(imageId: number, productId: number, successCallBack?: () => void): Promise<void> {
+  async changeShowcaseImage(imageId: string, productId: string, successCallBack?: () => void): Promise<void> {
     const observable = this.httpClientService.put({
       controller: "products",
       action: "ChangeProductImageShowcase"

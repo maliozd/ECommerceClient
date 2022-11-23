@@ -1,4 +1,4 @@
 export class Update_BasketItem {
-    basketItemId : number;
+    basketItemId : string;
     quantity : number
 }

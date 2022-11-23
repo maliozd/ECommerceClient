@@ -1,7 +1,17 @@
+.container-fluid {
+    display: contents;
+    justify-content: space-between;
+    flex-direction: row;
+}
 .card {
-    background-color: rgb(106, 149, 208);
+    background-color: rgba(225, 192, 134, 0.407);
+    border-radius: 1.2rem;
 }
 
 .card-img-top {
-padding-top: 25px;
+    padding-top: 12px;
+}
+
+.pagination {
+    padding-left: 340px;
 }

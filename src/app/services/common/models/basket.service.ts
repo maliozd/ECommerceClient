@@ -37,7 +37,7 @@ export class BasketService {
     await firstValueFrom(observable);
   }
 
-  async removeBasketItemAsync(basketItemId: number): Promise<void> {
+  async removeBasketItemAsync(basketItemId: string): Promise<void> {
     const observable: Observable<any> = this.httpClientService.delete({
       controller: "baskets"
     }, basketItemId);

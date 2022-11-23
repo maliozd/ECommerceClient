@@ -18,10 +18,10 @@ declare var $: any
 })
 export class SelectProductImageDialogComponent extends BaseDialog<SelectProductImageDialogComponent> implements OnInit {
 
-  selectedRadioImageId: number
+  selectedRadioImageId: string
 
   constructor(dialogRef: MatDialogRef<SelectProductImageDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: SelectProductImageState | number,
+    @Inject(MAT_DIALOG_DATA) public data: SelectProductImageState | string,
     private productService: ProductService,
     private dialogService: DialogService,
     private spinnerService: NgxSpinnerService) {
@@ -39,7 +39,7 @@ export class SelectProductImageDialogComponent extends BaseDialog<SelectProductI
 
   images: List_Product_Image[];
   async ngOnInit() {
-    this.images = await this.productService.readImages(this.data as number)
+    this.images = await this.productService.readImages(this.data as string)
     this.images.forEach((image) => {
       if (image.showcase){
         this.selectedRadioImageId = image.id;
@@ -48,22 +48,24 @@ export class SelectProductImageDialogComponent extends BaseDialog<SelectProductI
 
 
   }
-  async deleteImage(imageId: number, event: any) {
+  async deleteImage(imageId: string, event: any) {
+    debugger
     this.dialogService.openDialog({
       componentType: DeleteDialogComponent,
       data: DeleteState.Yes,
       afterClosed: async () => {
-        await this.productService.deleteImage(this.data as number, imageId, () => {
+        debugger
+        await this.productService.deleteImage(this.data as string, imageId, () => {
           var card = $(event.srcElement).parent().parent().parent();
           card.fadeOut(500);
         })
       }
     })
   }
-  setShowcaseImage(imageId: number) {
+  setShowcaseImage(imageId: string) {
     this.spinnerService.show(SpinnerType.BallScalePulse);
     debugger
-    this.productService.changeShowcaseImage(imageId, this.data, () => {
+    this.productService.changeShowcaseImage(imageId, this.data as string, () => {
       this.spinnerService.hide(SpinnerType.BallScalePulse)
       this.selectedRadioImageId = imageId;
     })

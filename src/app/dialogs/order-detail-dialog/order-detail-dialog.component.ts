@@ -16,7 +16,7 @@ import { CompleteOrderDialogComponent, CompleteOrderDialogState } from '../compl
 })
 export class OrderDetailDialogComponent extends BaseDialog<OrderDetailDialogComponent> implements OnInit {
 
-  constructor(dialogRef: MatDialogRef<OrderDetailDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: OrderDetailDialogState | number,
+  constructor(dialogRef: MatDialogRef<OrderDetailDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: OrderDetailDialogState | string,
     private orderService: OrderService, private dialogService: DialogService, private spinner: NgxSpinnerService, private toastrService: CustomToastrService) {
     super(dialogRef)
   }
@@ -29,7 +29,7 @@ export class OrderDetailDialogComponent extends BaseDialog<OrderDetailDialogComp
 
 
   async ngOnInit() {
-    this.singleOrder = await this.orderService.getOrderById(this.data);
+    this.singleOrder = await this.orderService.getOrderById(this.data as string);
     console.log(this.singleOrder);
     this.dataSource = this.singleOrder.basketItems;
     this.orderTotalPrice = this.singleOrder.basketItems.map((basketItem, index) => basketItem.price * basketItem.quantity).reduce((price, current) => price + current);
@@ -41,7 +41,7 @@ export class OrderDetailDialogComponent extends BaseDialog<OrderDetailDialogComp
       data: CompleteOrderDialogState.Yes,
       afterClosed: async () => {
         this.spinner.show(SpinnerType.BallScalePulse);
-        await this.orderService.completeOrder(this.data as number)
+        await this.orderService.completeOrder(this.data as string)
         this.spinner.hide(SpinnerType.BallScalePulse);
         this.toastrService.message("Order successfully completed.", "Successfull", {
           position: ToastrPosition.TopCenter,
