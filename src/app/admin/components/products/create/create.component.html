@@ -10,9 +10,29 @@
   <mat-label>Price</mat-label>
   <input matInput type="number" min="0" value="0" #txtPrice>  
 </mat-form-field>
+<mat-form-field appearance="fill" class = "dropdown">
+  <mat-label>Category</mat-label>
+  <mat-select>
+    <mat-option (click) = "mainCategorySelected(category.id)" *ngFor="let category of categories" [value]="category.id"  >
+      {{category.name}} 
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-form-field appearance="fill" class = "dropdown" *ngIf = "parentCategorySelected" #drpCategoryId>
+  <mat-label>Child Category</mat-label>
+  <mat-select>
+    <mat-option *ngFor="let childCategory of childCategories" [value]="childCategory.id" (click) = childCategorySelected(childCategory.id) >
+      {{childCategory.name}} 
+    </mat-option>
+  </mat-select>
+</mat-form-field>
 
-<button mat-flat-button color="primary" (click)="createP(txtName,txtPrice,txtStock)" class="btnCreate">Create
+<button mat-flat-button color="primary" (click)="createP(txtName,txtPrice,txtStock,selectedCategoryId)" class="btnCreate">Create
   Product</button>
 
   <hr />
   <app-file-upload [options]="fileUploadOptions"></app-file-upload>
+
+  <!--  -->
+  <!-- {{category.name}} -->
+<!--  -->

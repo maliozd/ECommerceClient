@@ -9,4 +9,5 @@ createdDate : Date
 updatedDate : Date
 productImageFiles? : List_Product_Image[];
 imagePath : string;
+category : string;
 }
