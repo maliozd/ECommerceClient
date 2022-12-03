@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
-import { Category } from 'src/app/contracts/category/category';
+import { CategoryIdName } from 'src/app/contracts/category/categoryIdName';
 import { Create_Product } from "src/app/contracts/products/create_product"
 import { AlertifyService, MessageType, Position } from 'src/app/services/admin/alertify.service';
 import { FileUploadOptions } from 'src/app/services/common/file-upload/file-upload.component';
@@ -23,8 +23,8 @@ export class CreateComponent extends BaseComponent implements OnInit {
     this.categories = await this.categoryService.getParentCategories();
   }
 
-  categories: Category[];
-  childCategories: Category[];
+  categories: CategoryIdName[];
+  childCategories: CategoryIdName[];
   selectedCategoryId: string
   parentCategorySelected: boolean = false;
   

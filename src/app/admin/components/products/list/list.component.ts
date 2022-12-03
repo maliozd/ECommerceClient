@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, Inject, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output, ViewChild,  } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import {  NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
@@ -6,10 +6,12 @@ import { List_Product }  from "src/app/contracts/products/list_product"
 
 import { AlertifyService, MessageType, Position } from 'src/app/services/admin/alertify.service';
 import { ProductService } from 'src/app/services/common/models/product.service';
-import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
+import { MatPaginator,  } from '@angular/material/paginator';
 import { Create_Product } from 'src/app/contracts/products/create_product';
 import { DialogService } from 'src/app/services/common/dialog.service';
 import { SelectProductImageDialogComponent } from 'src/app/dialogs/select-product-image-dialog/select-product-image-dialog.component';
+import { Router } from '@angular/router';
+import { EditProductDialogComponent } from 'src/app/dialogs/edit-product-dialog/edit-product-dialog.component';
 
 @Component({
   selector: 'app-list',
@@ -17,20 +19,30 @@ import { SelectProductImageDialogComponent } from 'src/app/dialogs/select-produc
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent extends BaseComponent implements OnInit {
+
+
   constructor(private productService: ProductService,
      spinner: NgxSpinnerService,
       private alertifyService: AlertifyService,
-      private dialogService : DialogService) {
+      private dialogService : DialogService,
+      private router : Router) {
     super(spinner)
   }
   displayedColumns: string[] = ['name', 'stock', 'price', 'createdDate','category' ,'updatedDate' ,"photos","edit","delete"];
   dataSource: MatTableDataSource<List_Product> = null
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
+ 
+
   async ngOnInit() {
     this.getProducts();
   }
   @Output() createdProduct : EventEmitter<Create_Product> = new EventEmitter()
+
+  routeCat(categoryId : string){
+    this.router.navigate([`admin/categories/${categoryId}`]);
+  }
+ 
   //-------------------------------------
   async getProducts() {
     this.showSpinner(SpinnerType.BallSpinFadeRotating);
@@ -43,7 +55,6 @@ export class ListComponent extends BaseComponent implements OnInit {
           position: Position.TopLeft
         }))
     this.dataSource = new MatTableDataSource<List_Product>(allProducts.products)   
-    console.log(allProducts.products)
     this.paginator.length = allProducts.totalCount;
   
     // this.changeDetectorRef.detectChanges();
@@ -55,6 +66,13 @@ export class ListComponent extends BaseComponent implements OnInit {
        options : {
         width: "1000px"
        }
+    })
+  }
+
+  editProduct(id:string){
+    this.dialogService.openDialog({
+      componentType : EditProductDialogComponent,
+      data: id
     })
   }
 

@@ -1,6 +1,19 @@
 table {
-    width: 80%;
-    height: 10px
-  }
-  
-  
+  width: 100%;
+  height: 10px;
+  background-color: rgba(247, 247, 234, 0.876);
+}
+
+.nav {
+  cursor: pointer;
+  color: rgba(231, 131, 131, 0.907);
+}
+
+.nav:hover {
+  color: red;
+}
+
+.popover {
+  position: absolute;
+  z-index: 100;
+}

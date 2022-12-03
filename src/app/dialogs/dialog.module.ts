@@ -16,6 +16,10 @@ import { MatTableModule } from '@angular/material/table';
 import { CompleteOrderDialogComponent } from './complete-order-dialog/complete-order-dialog.component';
 import { MatBadgeModule } from '@angular/material/badge';
 import { AuthorizeMenuDialogComponent } from './authorize-menu-dialog/authorize-menu-dialog.component';
+import { EditProductDialogComponent } from './edit-product-dialog/edit-product-dialog.component';
+import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelect, MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -26,10 +30,11 @@ import { AuthorizeMenuDialogComponent } from './authorize-menu-dialog/authorize-
     OrderDetailDialogComponent,
     CompleteOrderDialogComponent,
     AuthorizeMenuDialogComponent,
+    EditProductDialogComponent,
   ],
   imports: [
     CommonModule,
-    MatDialogModule, MatButtonModule, MatCardModule, MatTableModule,MatToolbarModule,MatBadgeModule,
+    MatDialogModule, MatButtonModule, MatCardModule, MatTableModule,MatToolbarModule,MatBadgeModule,MatFormFieldModule,MatSelectModule,MatInputModule ,
     FileUploadModule,
     FormsModule
 

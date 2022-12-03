@@ -17,23 +17,29 @@ import { FileUploadModule } from '../../../services/common/file-upload/file-uplo
 import { DialogModule } from '../../../dialogs/dialog.module';
 import { DeleteDirectiveModule } from 'src/app/directives/admin/delete/delete-directive.module';
 import { MatSelectModule } from '@angular/material/select';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatCardModule } from '@angular/material/card';
+import { SingleCategoryComponent } from '../category/single-category/single-category.component';
+import { EditComponent } from './edit/edit.component';
 
 @NgModule({
   declarations: [
     ProductComponent,
     CreateComponent,
     ListComponent,
-    
+    EditComponent,
   ],
   imports: [
     CommonModule,
     RouterModule.forChild([
       { path: "", component: ProductComponent }
+      
     ]),
     MatSidenavModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatTableModule, MatPaginatorModule,MatSelectModule,
+    MatCardModule,MatBadgeModule,
     DialogModule,
     FileUploadModule,
-    DeleteDirectiveModule
+    DeleteDirectiveModule,
   ]
 })
 export class ProductModule { }

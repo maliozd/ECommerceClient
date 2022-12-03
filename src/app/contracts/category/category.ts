@@ -1,6 +1,7 @@
-export class Category {
+export class Single_Category {
     id: string;
     name: string;
-    parentCategory? : Category;
-    childCategory? : Category
+    createdDate : Date;
+    parentCategory? : Single_Category;
+    childCategories? : string[];
 }

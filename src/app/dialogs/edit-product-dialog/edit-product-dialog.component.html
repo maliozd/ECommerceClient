@@ -1,0 +1,16 @@
+<mat-form-field appearance="fill">
+    <mat-label>Name</mat-label>
+    <input matInput value={{productToUpdate?.name}}>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>{{productToUpdate?.category?.name}}</mat-label>
+    <mat-select>,
+      <mat-option *ngFor = "let category of mainCategories">
+        {{category.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Textarea</mat-label>
+    <textarea matInput></textarea>
+  </mat-form-field>

@@ -5,6 +5,7 @@ import { Create_Product } from 'src/app/contracts/products/create_product';
 import { List_Product } from 'src/app/contracts/products/list_product';
 import { List_Product_Image } from 'src/app/contracts/productImage/list_product_image';
 import { HttpClientService } from "src/app/services/common/http-client.service"
+import { Single_Product } from 'src/app/contracts/products/single_product';
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +38,6 @@ export class ProductService {
     }).toPromise()
     promiseData.then(d => successCallBack())
       .catch((errorResponse: HttpErrorResponse) => errorCallBack(errorResponse.message))
-
     return await promiseData
   }
   async delete(id: string) {
@@ -72,9 +72,14 @@ export class ProductService {
       imageId: imageId,
       productId: productId
     });
-    debugger
     await firstValueFrom(observable);
-    successCallBack();
+  }
+
+  async getProductById(id: string) : Promise<Single_Product> {
+    const observable : Observable<Single_Product> = this.httpClientService.get({
+      controller: "products"
+    }, id);
+    return await firstValueFrom(observable);
   }
 }
 

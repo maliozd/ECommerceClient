@@ -21,9 +21,9 @@ import { DynamicLoadComponentDirective } from './directives/common/dynamic-load-
 
 @NgModule({
   declarations: [
+    DynamicLoadComponentDirective,
     AppComponent,
     LoginComponent,
-    DynamicLoadComponentDirective
   ],
   imports: [
     BrowserModule,

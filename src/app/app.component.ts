@@ -31,11 +31,9 @@ export class AppComponent {
   };
 
   loadBasketComponent() {
-
-
     this.dynamicLoadComponentService.loadComponent(ComponentType.BasketsComponent, this.dynamicLoadComponentDirective.viewContainerRef);
-
   }
+  
 
 }
 

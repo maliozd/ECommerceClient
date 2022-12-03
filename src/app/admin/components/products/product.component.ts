@@ -18,12 +18,7 @@ export class ProductComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    // this.httpClientService.get<Create_Product[]>({
-    //   controller:"products"
-    //   //fullEndPoint = weatherforecast.com/api... -->end point ile buraya istek gönderebilirim
-    // }).subscribe(data => console.log(data)
-    // );
+  
   }
   @ViewChild(ListComponent) listComponents : ListComponent  //product componentin altındaki component
   productToCreate(productToCreate: Create_Product) {
