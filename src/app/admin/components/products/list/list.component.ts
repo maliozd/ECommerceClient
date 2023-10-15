@@ -10,8 +10,9 @@ import { MatPaginator,  } from '@angular/material/paginator';
 import { Create_Product } from 'src/app/contracts/products/create_product';
 import { DialogService } from 'src/app/services/common/dialog.service';
 import { SelectProductImageDialogComponent } from 'src/app/dialogs/select-product-image-dialog/select-product-image-dialog.component';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { EditProductDialogComponent } from 'src/app/dialogs/edit-product-dialog/edit-product-dialog.component';
+import { FileService } from 'src/app/services/common/models/file-service';
 
 @Component({
   selector: 'app-list',
@@ -25,16 +26,17 @@ export class ListComponent extends BaseComponent implements OnInit {
      spinner: NgxSpinnerService,
       private alertifyService: AlertifyService,
       private dialogService : DialogService,
-      private router : Router) {
+      private router : Router,
+      private fileService : FileService) {
     super(spinner)
   }
-  displayedColumns: string[] = ['name', 'stock', 'price', 'createdDate','category' ,'updatedDate' ,"photos","edit","delete"];
+  displayedColumns: string[] = ['photo','name', 'stock', 'price', 'createdDate','category' ,'updatedDate' ,"photos","edit","delete"];
   dataSource: MatTableDataSource<List_Product> = null
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-
- 
+  @ViewChild(MatPaginator) paginator: MatPaginator; 
+  baseUrl: string
 
   async ngOnInit() {
+    this.baseUrl = (await this.fileService.getBaseStorageUrlAsync()).baseStorageUrl
     this.getProducts();
   }
   @Output() createdProduct : EventEmitter<Create_Product> = new EventEmitter()
@@ -47,7 +49,7 @@ export class ListComponent extends BaseComponent implements OnInit {
   async getProducts() {
     this.showSpinner(SpinnerType.BallSpinFadeRotating);
     const allProducts: { totalCount: number; products: List_Product[] } =
-      await this.productService.getProduct(
+      await this.productService.getAllProducts(
         this.paginator ? this.paginator.pageIndex : 0, this.paginator ? this.paginator.pageSize : 5, () =>
         this.hideSpinner(SpinnerType.BallSpinFadeRotating), errorMesage => this.alertifyService.message(errorMesage, {
           dismissOthers: true,
@@ -55,6 +57,7 @@ export class ListComponent extends BaseComponent implements OnInit {
           position: Position.TopLeft
         }))
     this.dataSource = new MatTableDataSource<List_Product>(allProducts.products)   
+    console.log(allProducts);
     this.paginator.length = allProducts.totalCount;
   
     // this.changeDetectorRef.detectChanges();

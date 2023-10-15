@@ -16,6 +16,7 @@ export class UserService {
       this.httpClientService.post<Create_User | User>(
         {
           controller: 'users',
+          action : "CreateUser"
         },
         user
       );

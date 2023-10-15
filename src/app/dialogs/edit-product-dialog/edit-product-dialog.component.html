@@ -1,16 +1,32 @@
 <mat-form-field appearance="fill">
     <mat-label>Name</mat-label>
-    <input matInput value={{productToUpdate?.name}}>
+    <input matInput value={{productToUpdate?.name}} #txtName>
   </mat-form-field>
   <mat-form-field appearance="fill">
-    <mat-label>{{productToUpdate?.category?.name}}</mat-label>
-    <mat-select>,
-      <mat-option *ngFor = "let category of mainCategories">
+    <mat-label>{{productCategoryParent}}</mat-label>
+    <mat-select #selectedCategoryId>
+      <mat-option *ngFor = "let category of childCategories">
         {{category.name}}
       </mat-option>
     </mat-select>
   </mat-form-field>
   <mat-form-field appearance="fill">
-    <mat-label>Textarea</mat-label>
-    <textarea matInput></textarea>
+    <mat-label>{{productToUpdate?.category?.name}}</mat-label>
+    <mat-select #selectedCategoryId>
+      <mat-option *ngFor = "let category of childCategories">
+        {{category.name}}
+      </mat-option>
+    </mat-select>
   </mat-form-field>
+ 
+  <mat-form-field appearance="fill">
+    <mat-label>Stock</mat-label>
+    <input matInput #txtStock type ="number"  min="0" value="{{productToUpdate?.stock}}" >
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Price</mat-label>
+    <input matInput #txtPrice type="number"  min="0" value="{{productToUpdate?.price}}">
+  </mat-form-field>
+
+  <button mat-flat-button color="primary" (click)="updateProduct(txtName,txtPrice,txtStock,selectedCategoryId)" class="btnCreate">Submit
+    </button>

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { first, firstValueFrom, Observable } from 'rxjs';
 import { Create_Product } from 'src/app/contracts/products/create_product';
 import { List_Product } from 'src/app/contracts/products/list_product';
-import { List_Product_Image } from 'src/app/contracts/productImage/list_product_image';
+import { Product_Image } from 'src/app/contracts/productImage/list_product_image';
 import { HttpClientService } from "src/app/services/common/http-client.service"
 import { Single_Product } from 'src/app/contracts/products/single_product';
 
@@ -31,7 +31,7 @@ export class ProductService {
     });
   }
 
-  async getProduct(page: number = 0, size: number = 5, successCallBack?: () => void, errorCallBack?: (errorMesage: string) => void): Promise<{ totalCount: number, products: List_Product[] }> {
+  async getAllProducts(page: number = 0, size: number = 5, successCallBack?: () => void, errorCallBack?: (errorMesage: string) => void): Promise<{ totalCount: number, products: List_Product[] }> {
     const promiseData: Promise<{ totalCount: number; products: List_Product[] }> = this.httpClientService.get<{ totalCount: number, products: List_Product[] }>({
       controller: "products",
       queryString: `page=${page}&size=${size}`
@@ -40,18 +40,36 @@ export class ProductService {
       .catch((errorResponse: HttpErrorResponse) => errorCallBack(errorResponse.message))
     return await promiseData
   }
+
+  async updateProduct(product: Single_Product) {
+    const observable = this.httpClientService.put({
+      controller: "products",
+
+    }, product);
+    debugger
+    return await firstValueFrom(observable);
+  }
+
+  async getProductById(id: string): Promise<Single_Product> {
+    const observable: Observable<Single_Product> = this.httpClientService.get({
+      controller: "products"
+    }, id);
+    return await firstValueFrom(observable);
+  }
+
+
   async delete(id: string) {
     const deletedObservable: Observable<any> = this.httpClientService.delete<any>({
       controller: "products"
     }, id);
     await firstValueFrom(deletedObservable);
   }
-  async readImages(id: string, successCallBack?: () => void): Promise<List_Product_Image[]> {
-    const getObservable: Observable<List_Product_Image[]> = this.httpClientService.get<List_Product_Image[]>({
+  async readImages(id: string, successCallBack?: () => void): Promise<Product_Image[]> {
+    const getObservable: Observable<Product_Image[]> = this.httpClientService.get<Product_Image[]>({
       action: "getProductImages",
       controller: "products"
     }, id)
-    const images: List_Product_Image[] = await firstValueFrom(getObservable);
+    const images: Product_Image[] = await firstValueFrom(getObservable);
     return images;
   }
   async deleteImage(id: string, imageId: string, successCallBack?: () => void) {
@@ -75,12 +93,9 @@ export class ProductService {
     await firstValueFrom(observable);
   }
 
-  async getProductById(id: string) : Promise<Single_Product> {
-    const observable : Observable<Single_Product> = this.httpClientService.get({
-      controller: "products"
-    }, id);
-    return await firstValueFrom(observable);
-  }
+
+
+
 }
 
 

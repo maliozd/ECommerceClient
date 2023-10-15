@@ -29,14 +29,15 @@ export class ListComponent extends BaseComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   async ngOnInit() {
-    this.dataSource = new MatTableDataSource<Single_Category>(await this.getCategories());
+    this.getCategories();
   }
 
   async getCategories() {
     this.showSpinner(SpinnerType.BallSpinFadeRotating);
-    const allCategories: Single_Category[] = await this.categoryService.getAllCategoriesPaged(this.paginator ? this.paginator.pageIndex : 0, this.paginator ? this.paginator.pageSize : 5);
-    console.log(allCategories)
-    return allCategories;
+    const allCategories: {totalCount : number, categories : Single_Category[]} = await this.categoryService.getAllCategoriesPaged(this.paginator ? this.paginator.pageIndex : 0, this.paginator ? this.paginator.pageSize : 5);
+    this.dataSource = new MatTableDataSource<Single_Category>(allCategories.categories);
+    this.paginator.length = allCategories.totalCount;
+    this.hideSpinner(SpinnerType.BallSpinFadeRotating);
     // this.changeDetectorRef.detectChanges();
   }
 

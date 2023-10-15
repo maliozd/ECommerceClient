@@ -37,7 +37,7 @@ export class CreateComponent extends BaseComponent implements OnInit {
     accept: ".jpg, .png, .jpeg, .json"
   } //dışardaki bir componente gidecek.
 
-  createP(name: HTMLInputElement, stock: HTMLInputElement, price: HTMLInputElement,selectedCategoryId) {
+  createProduct(name: HTMLInputElement, stock: HTMLInputElement, price: HTMLInputElement,selectedCategoryId) {
     this.showSpinner(SpinnerType.BallSpinFadeRotating)
     const createdProduct: Create_Product = new Create_Product()
     createdProduct.name = name.value;

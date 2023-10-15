@@ -7,10 +7,10 @@ table {
 .nav {
   cursor: pointer;
   color: rgba(231, 131, 131, 0.907);
-}
 
-.nav:hover {
-  color: red;
+  &:hover{
+    color: red;
+  }
 }
 
 .popover {

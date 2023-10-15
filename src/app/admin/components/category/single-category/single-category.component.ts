@@ -15,12 +15,7 @@ import { CategoryService } from 'src/app/services/common/models/category.service
 })
 export class SingleCategoryComponent implements OnInit {
 
-  constructor(private activatedRoute : ActivatedRoute, private categoryService : CategoryService ) { }
-
-
- 
-
-  
+  constructor(private activatedRoute : ActivatedRoute, private categoryService : CategoryService ) { } 
   
   categoryId : string;
 

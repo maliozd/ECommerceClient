@@ -32,7 +32,7 @@ export class ListComponent extends BaseComponent implements OnInit {
   async ngOnInit() {
     this.activatedRoute.params.subscribe(async params => {
       this.currentPageNo = parseInt(params["pageNo"] ?? 1);
-      const data = await this.productService.getProduct(this.currentPageNo - 1, this.pageSize, () => {
+      const data = await this.productService.getAllProducts(this.currentPageNo - 1, this.pageSize, () => {
 
       }, errorMessage => {
 
@@ -46,7 +46,6 @@ export class ListComponent extends BaseComponent implements OnInit {
         const listProduct: List_Product = {
           id: p.id,
           createdDate: p.createdDate,
-          imagePath: imagePath,
           name: p.name,
           price: p.price,
           stock: p.stock,
@@ -75,13 +74,10 @@ export class ListComponent extends BaseComponent implements OnInit {
   }
 
   async addToBasket(product: List_Product) {
-    this.showSpinner(SpinnerType.BallScalePulse)
-
     await this.basketService.addBasketItemAsync({
       productId: product.id,
       quantity: 1
     });
-    this.hideSpinner(SpinnerType.BallScalePulse)
     this.toastrService.message("Item added to cart.", "Successfull", {
       position: ToastrPosition.TopRight,
       messageType: ToastrMessageType.Success

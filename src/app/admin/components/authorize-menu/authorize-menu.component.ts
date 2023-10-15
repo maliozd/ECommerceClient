@@ -54,14 +54,14 @@ export class AuthorizeMenuComponent extends BaseComponent implements OnInit {
 
   }
 
-  assignRole(code:string,menuName : string){
-this.dialogService.openDialog({
-  componentType: AuthorizeMenuDialogComponent,
-  data:{code,menuName},
-  options: {
-    width : "600px",
-  }
-})
+  assignRole(code: string, menuName: string) {
+    this.dialogService.openDialog({
+      componentType: AuthorizeMenuDialogComponent,
+      data: { code, menuName },
+      options: {
+        width: "600px",
+      }
+    })
   }
 
 
@@ -90,16 +90,17 @@ this.dialogService.openDialog({
 
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
 
-  // assignRole(code: string, name: string, menuName: string) {
-  //   this.dialogService.openDialog({
-  //     componentType: AuthorizeMenuDialogComponent,
-  //     data: { code: code, name: name, menuName: menuName },
-  //     options: {
-  //       width: "750px"
-  //     },
-  //     afterClosed: () => {
+//   assignRole(code: string, name: string, menuName: string) {
+//     this.dialogService.openDialog({
+//       componentType: AuthorizeMenuDialogComponent,
+//       data: { code: code, name: name, menuName: menuName },
+//       options: {
+//         width: "750px"
+//       },
+//       afterClosed: () => {
 
-  //     }
-  //   });
-  // }
-}
+//       }
+//     });
+//   }
+// }
+  }

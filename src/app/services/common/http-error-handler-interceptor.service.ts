@@ -17,19 +17,18 @@ export class HttpErrorHandlerInterceptorService implements HttpInterceptor {
       switch (error.status) {
         case HttpStatusCode.Unauthorized:
           this.userAuthService.refreshTokenLoginAsync(localStorage.getItem('refreshToken'), (state => {
-
             if (!state) {
               const url = this.router.url;
               if (url == "/products")
                 this.toastrService.message("You must login to add product to shopping cart", "Must login!", {
                   messageType: ToastrMessageType.Warning,
-                  position: ToastrPosition.TopRight
+                  position: ToastrPosition.BottomRight
                 });
             }
             else
-              this.toastrService.message("No authorzied.", "Yetkisiz işlem", {
+              this.toastrService.message("No authorized.", "Yetkisiz işlem", {
                 messageType: ToastrMessageType.Error,
-                position: ToastrPosition.TopFullWidth
+                position: ToastrPosition.TopRight
               });
 
           }));

@@ -22,7 +22,7 @@ export class RoleService {
     return await promiseData;
   }
 
-  async create(name: string, successCallBack?: () => void, errorCallBack?: (error) => void) {
+  async createRole(name: string, successCallBack?: () => void, errorCallBack?: (error) => void) {
     const observable: Observable<any> = this.httpClientService.post({
       controller: "roles"
     }, { name: name });

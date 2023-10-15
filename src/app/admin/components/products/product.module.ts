@@ -20,14 +20,12 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatCardModule } from '@angular/material/card';
 import { SingleCategoryComponent } from '../category/single-category/single-category.component';
-import { EditComponent } from './edit/edit.component';
 
 @NgModule({
   declarations: [
     ProductComponent,
     CreateComponent,
     ListComponent,
-    EditComponent,
   ],
   imports: [
     CommonModule,

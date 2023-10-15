@@ -29,29 +29,31 @@ export class OrderDetailDialogComponent extends BaseDialog<OrderDetailDialogComp
 
 
   async ngOnInit() {
-    this.singleOrder = await this.orderService.getOrderById(this.data as string);
-    console.log(this.singleOrder);
-    this.dataSource = this.singleOrder.basketItems;
-    this.orderTotalPrice = this.singleOrder.basketItems.map((basketItem, index) => basketItem.price * basketItem.quantity).reduce((price, current) => price + current);
-  }
+  this.singleOrder = await this.orderService.getOrderById(this.data as string);
+  console.log(this.singleOrder);
+  this.dataSource = this.singleOrder.basketItems;
+  this.orderTotalPrice = this.singleOrder.basketItems.map((basketItem, index) => basketItem.price * basketItem.quantity).reduce((price, current) => price + current);
+}
 
   async completeOrder() {
-    this.dialogService.openDialog({
-      componentType: CompleteOrderDialogComponent,
-      data: CompleteOrderDialogState.Yes,
-      afterClosed: async () => {
-        this.spinner.show(SpinnerType.BallScalePulse);
-        await this.orderService.completeOrder(this.data as string)
-        this.spinner.hide(SpinnerType.BallScalePulse);
-        this.toastrService.message("Order successfully completed.", "Successfull", {
-          position: ToastrPosition.TopCenter,
-          messageType: ToastrMessageType.Success
-        });
-        
-      }
-    })
-  }
+  this.dialogService.openDialog({
+    componentType: CompleteOrderDialogComponent,
+    data: CompleteOrderDialogState.Yes,
+    afterClosed: async () => {
+      this.spinner.show(SpinnerType.BallScalePulse);
 
+      await this.orderService.completeOrder(this.data as string)
+
+      this.spinner.hide(SpinnerType.BallScalePulse);
+      this.toastrService.message("Order successfully completed.", "Successfull", {
+        position: ToastrPosition.TopCenter,
+        messageType: ToastrMessageType.Success
+      });
+
+    }
+  })
+}
+  
 }
 
 export enum OrderDetailDialogState {

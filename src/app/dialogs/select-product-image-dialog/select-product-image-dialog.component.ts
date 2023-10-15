@@ -3,7 +3,7 @@ import { MatCard } from '@angular/material/card';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { SpinnerType } from 'src/app/base/base.component';
-import { List_Product_Image } from 'src/app/contracts/productImage/list_product_image';
+import { Product_Image } from 'src/app/contracts/productImage/list_product_image';
 import { DialogService } from 'src/app/services/common/dialog.service';
 import { FileUploadOptions } from 'src/app/services/common/file-upload/file-upload.component';
 import { ProductService } from 'src/app/services/common/models/product.service';
@@ -37,7 +37,7 @@ export class SelectProductImageDialogComponent extends BaseDialog<SelectProductI
   }
 
 
-  images: List_Product_Image[];
+  images: Product_Image[];
   async ngOnInit() {
     this.images = await this.productService.readImages(this.data as string)
     this.images.forEach((image) => {

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { createLogger } from '@microsoft/signalr/dist/esm/Utils';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
 import { List_Order } from 'src/app/contracts/order/list_order';
@@ -50,13 +51,18 @@ export class ListComponent extends BaseComponent implements OnInit {
   }
 
 
-  showDetail(id: number) {
+  async showDetail(id: number) {
     this.dialogService.openDialog({
       componentType: OrderDetailDialogComponent,
       data: id,
-      options : {
-        width : "1000px"
+      options: {
+        width: "1000px"
+      },
+      afterClosed: async () => {
+        await this.getOrders();
+        debugger;
       }
+
     });
   }
 

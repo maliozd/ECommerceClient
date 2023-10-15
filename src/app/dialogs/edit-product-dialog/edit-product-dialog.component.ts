@@ -18,11 +18,31 @@ export class EditProductDialogComponent extends BaseDialog<EditProductDialogComp
     super(dialogRef)
   }
   productToUpdate: Single_Product;
-  mainCategories : CategoryIdName[];
+  productCategoryParent : Single_Category;
+  childCategories : CategoryIdName[];
+  selectedCategoryId: string
+   
   async ngOnInit() {
     this.productToUpdate = await this.productService.getProductById(this.data);
-    this.mainCategories = await this.categoryService.getParentCategories(); 
-    console.log(this.mainCategories)
+    this.productCategoryParent =(await this.categoryService.getCategoryById(this.productToUpdate.category.id)).parentCategory
+    this.childCategories = await this.categoryService.getChildCategoriesByParentId(this.productCategoryParent?.id)
+
+    debugger;
+    console.log(this.productCategoryParent)
+    console.log(this.childCategories)
+    console.log(this.productToUpdate)
   }
+
+  async updateProduct(name: HTMLInputElement, stock: HTMLInputElement, price: HTMLInputElement,selectedCategoryId) {
+    const updatedProduct: Single_Product = new Single_Product()
+    updatedProduct.id = this.productToUpdate.id;
+    updatedProduct.category = await this.categoryService.getCategoryById(selectedCategoryId);
+    updatedProduct.name = name.value;
+    updatedProduct.price = stock.valueAsNumber
+    updatedProduct.stock = price.valueAsNumber
+    debugger
+    this.productService.updateProduct(updatedProduct);
+  }
+  
 
 }

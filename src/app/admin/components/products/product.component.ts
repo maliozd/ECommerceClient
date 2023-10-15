@@ -21,6 +21,8 @@ export class ProductComponent extends BaseComponent implements OnInit {
   
   }
   @ViewChild(ListComponent) listComponents : ListComponent  //product componentin altındaki component
+
+  
   productToCreate(productToCreate: Create_Product) {
     this.listComponents.getProducts();
   }

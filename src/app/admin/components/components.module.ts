@@ -7,6 +7,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { AuthorizeMenuModule } from './authorize-menu/authorize-menu.module';
 import { DynamicLoadComponentDirective } from 'src/app/directives/common/dynamic-load-component.directive';
 import { CategoryModule } from './category/category.module';
+import { RoleModule } from './role/role.module';
 
 
 
@@ -20,7 +21,8 @@ import { CategoryModule } from './category/category.module';
     OrderModule,
     CustomerModule,
     DashboardModule,
-    AuthorizeMenuModule
+    AuthorizeMenuModule,
+    RoleModule
   ]
 })
 export class ComponentsModule { }
