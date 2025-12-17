@@ -1,27 +1,34 @@
-# ECommerceClient
+# E-Commerce Client
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.0.
+This repository contains the **frontend client** of an e-commerce application.
 
-## Development server
+The project was developed as a **learning-oriented frontend companion** to the backend API, focusing on consuming a modern ASP.NET Core–based e-commerce service.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## 🎯 Purpose
 
-## Code scaffolding
+The main goal of this project was to:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Practice real-world frontend–backend integration
+- Consume secured APIs (JWT-based authentication)
+- Understand client-side responsibilities in a layered backend architecture
+- Progress through experimentation rather than perfection
 
-## Build
+This project was built alongside an educational backend journey guided by **Gençay Yıldız**.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
+## 🛠️ Tech Stack
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- HTML / CSS / JavaScript
+- API consumption via HTTP
+- JWT-based authentication flow
+- SignalR (where applicable)
+- Simple and framework-light frontend structure
 
-## Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## 📌 Notes
 
-## Further help
+- This is a **learning-focused frontend project**
+- Designed to work with the corresponding E-Commerce API
+- Prioritizes clarity and understanding over visual complexity
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
